@@ -58,7 +58,6 @@ public class ProductoController {
     @PostMapping("/guardar")
     public String crear(@Valid @ModelAttribute("productoForm") Producto productoForm,BindingResult bindingResult,Authentication authentication,Model model){
         if (bindingResult.hasErrors()) {
-            //model.addAttribute("productoForm",productoForm);
             model.addAttribute("categorias",categoriaService.list());
             return "producto/nuevo";
         }
@@ -81,13 +80,12 @@ public class ProductoController {
     
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable("id") int id){
-        if(!productoService.existsById(id))
-            return new ModelAndView("redirect:/producto/lista");
-        Producto producto = productoService.getOne(id).get();
-        ModelAndView mv = new ModelAndView("/producto/editar");
-        mv.addObject("producto", producto);
-        return mv;
+    public String editar(@PathVariable("id") int id,Model model){
+        if(!productoService.existsById(id)){
+            return "redirect:/producto/lista";
+        }
+        model.addAttribute("producto",productoService.getOne(id).get());
+        return "producto/editar";
     }
     
     @PreAuthorize("hasRole('ADMIN')")
