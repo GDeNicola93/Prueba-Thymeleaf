@@ -84,43 +84,27 @@ public class ProductoController {
         if(!productoService.existsById(id)){
             return "redirect:/producto/lista";
         }
-        model.addAttribute("producto",productoService.getOne(id).get());
+        model.addAttribute("productoForm",productoService.getOne(id).get());
         model.addAttribute("categorias",categoriaService.list());
         return "producto/editar";
     }
     
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/actualizar")
-    public ModelAndView actualizar(@RequestParam int id, @RequestParam String nombre, @RequestParam float precio,Authentication authentication){
-        if(!productoService.existsById(id))
-            return new ModelAndView("redirect:/producto/lista");
-        ModelAndView mv = new ModelAndView();
+    public String actualizar(@Valid @ModelAttribute("productoForm") Producto productoForm,BindingResult bindingResult,Authentication authentication,Model model){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categorias",categoriaService.list());
+            return "producto/editar";
+        }
         UsuarioPrincipal userLogeado = (UsuarioPrincipal) authentication.getPrincipal();
-        Producto producto = productoService.getOne(id).get();
-        if(StringUtils.isBlank(nombre)){
-            mv.setViewName("producto/editar");
-            mv.addObject("producto", producto);
-            mv.addObject("error", "el nombre no puede estar vacío");
-            return mv;
-        }
-        if(precio <1 ){
-            mv.setViewName("producto/editar");
-            mv.addObject("error", "el precio debe ser mayor que cero");
-            mv.addObject("producto", producto);
-            return mv;
-        }
-        if(productoService.existsByNombre(nombre) && productoService.getByNombre(nombre).get().getId() != id){
-            mv.setViewName("producto/editar");
-            mv.addObject("error", "ese nombre ya existe");
-            mv.addObject("producto", producto);
-            return mv;
-        }
-
-        producto.setNombre(nombre);
-        producto.setPrecio(precio);
+        Producto producto = productoService.getOne(productoForm.getId()).get();
+        producto.setNombre(productoForm.getNombre());
+        producto.setPrecio(productoForm.getPrecio());
+        producto.setCategoria(productoForm.getCategoria());
         producto.setUsuarioUltimaActualizacion(new Usuario(userLogeado.getId()));
         productoService.save(producto);
-        return new ModelAndView("redirect:/producto/lista");
+        return "redirect:/producto/lista";
+        
     }
     
     @PreAuthorize("hasRole('ADMIN')")
