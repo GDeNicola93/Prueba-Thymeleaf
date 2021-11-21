@@ -85,6 +85,7 @@ public class ProductoController {
             return "redirect:/producto/lista";
         }
         model.addAttribute("producto",productoService.getOne(id).get());
+        model.addAttribute("categorias",categoriaService.list());
         return "producto/editar";
     }
     

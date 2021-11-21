@@ -36,7 +36,6 @@ public class Producto implements Serializable {
     @OneToOne
     private Usuario usuarioRegistro;
     
-    @Null
     @OneToOne
     private Usuario usuarioUltimaActualizacion;
 

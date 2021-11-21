@@ -26,9 +26,12 @@
                             <label for="categoria">Categoria</label>
                             <select name="categoria" id="categoria" class="form-control" required>
                                <option value="">------</option>
-                               <option th:each="categoria : ${categorias}"
+                               <div th:each="categoria : ${categorias}">
+                                   <option th:selected="${categoria.id == producto.categoria.id}" th:value="${categoria.id}" th:utext="${categoria.nombre}"></option>                               
+                               </div>
+                               <!--<option th:each="categoria : ${categorias}"
                                 th:value="${categoria.id}"
-                                th:utext="${categoria.nombre}"/>
+                                th:utext="${categoria.nombre}"/>-->
                             </select>
                         </div>
                         <div class="form-group">
