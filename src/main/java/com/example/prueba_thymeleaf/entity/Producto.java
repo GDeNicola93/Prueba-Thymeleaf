@@ -1,5 +1,6 @@
 package com.example.prueba_thymeleaf.entity;
 
+import com.example.prueba_thymeleaf.validators.CategoriaValid;
 import com.sun.istack.NotNull;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -30,6 +31,7 @@ public class Producto implements Serializable {
     private float precio;
     
     @ManyToOne
+    @CategoriaValid
     private Categoria categoria;
     
     @NotNull
