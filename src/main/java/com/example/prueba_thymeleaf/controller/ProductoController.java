@@ -37,12 +37,9 @@ public class ProductoController {
     CategoriaService categoriaService;
     
     @GetMapping("/lista")
-    public ModelAndView list(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/producto/lista");
-        List<ProductoListaDto> list = productoService.list();
-        mv.addObject("productos",list);
-        return mv;
+    public String list(Model model){
+        model.addAttribute("productos",productoService.list());
+        return "producto/lista";
     }
     
     @PreAuthorize("hasRole('ADMIN')")
