@@ -106,10 +106,10 @@ public class ProductoController {
     
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/borrar/{id}")
-    public ModelAndView borrar(@PathVariable("id")int id){
+    public String borrar(@PathVariable("id")int id){
         if(productoService.existsById(id)){
             productoService.delete(id);
-            return new ModelAndView("redirect:/producto/lista");
+            return "redirect:/producto/lista";
         }
         return null;
     }
