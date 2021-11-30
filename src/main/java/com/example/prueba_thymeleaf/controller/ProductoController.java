@@ -66,13 +66,12 @@ public class ProductoController {
     }
     
     @GetMapping("/detalle/{id}")
-    public ModelAndView detalle(@PathVariable("id") int id){
-        if(!productoService.existsById(id))
-            return new ModelAndView("redirect:/producto/lista");
-        Producto producto = productoService.getOne(id).get();
-        ModelAndView mv = new ModelAndView("/producto/detalle");
-        mv.addObject("producto", producto);
-        return mv;
+    public String detalle(@PathVariable("id") int id,Model model){
+        if(!productoService.existsById(id)){
+            return "redirect:/producto/lista";
+        }
+        model.addAttribute("producto",productoService.getOne(id).get());
+        return "/producto/detalle";
     }
     
     @PreAuthorize("hasRole('ADMIN')")
