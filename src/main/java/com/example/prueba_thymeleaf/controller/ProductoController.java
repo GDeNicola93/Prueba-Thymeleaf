@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -39,20 +41,8 @@ public class ProductoController {
     CategoriaService categoriaService;
     
     @GetMapping("/lista")
-    public String list(HttpServletRequest request,Model model){
-        int page = 0; //default page number is 0 (yes it is weird)
-        int size = 8; //default page size is 10
-        
-        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
-            page = Integer.parseInt(request.getParameter("page")) - 1;
-        }
-
-        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
-            size = Integer.parseInt(request.getParameter("size"));
-        }
-        
-        //model.addAttribute("productos",productoService.list());
-        model.addAttribute("productos",productoService.list(PageRequest.of(page, size)));
+    public String list(@PageableDefault(size = 8) Pageable pageable,Model model){
+        model.addAttribute("page",productoService.list(pageable));
         return "producto/lista";
     }
     
