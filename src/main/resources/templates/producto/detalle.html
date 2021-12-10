@@ -14,6 +14,7 @@
                     <h5 class="card-title" th:text="'Nombre: ' + ${producto.nombre}"></h5>
                     <p class="card-text" th:text="'Precio: ' + ${producto.precio} + '€'"></p>
                     <p class="card-text" th:text="'Categoria: ' + ${producto.categoria.nombre}"></p>
+                    <p class="card-text" th:text="'Sub Categoria: ' + ${producto.subCategoria.nombre}"></p>
                     <p class="card-text" th:text="'Creado por: ' + ${producto.usuarioRegistro.nombreUsuario}"></p>
                     <div th:if="${producto.usuarioUltimaActualizacion != null}" class="card-text">
                         <p class="card-text" th:text="'Ultima actualización por: ' + ${producto.usuarioUltimaActualizacion.nombreUsuario}"></p>

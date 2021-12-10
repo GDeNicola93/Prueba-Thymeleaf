@@ -34,6 +34,9 @@ public class Producto implements Serializable {
     @CategoriaValid
     private Categoria categoria;
     
+    @ManyToOne
+    private SubCategoria subCategoria;
+    
     @NotNull
     @OneToOne
     private Usuario usuarioRegistro;

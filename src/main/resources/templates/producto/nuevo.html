@@ -15,23 +15,36 @@
                         <!-- fin control ataque csrf -->
                         <div class="form-group">
                             <label for="nombre">Nombre del producto</label>
-                            <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" required="required" autocomplete="off">
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                            <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" autocomplete="off" th:classappend="${ #fields.hasErrors('nombre') } ? ' is-invalid' : '' ">
+                            <div class="invalid-feedback">
+                                <th:block th:each="error : ${ #fields.errors('nombre') }" th:text="${ error }"></th:block>
+                            </div> 
                         </div>
                         <div class="form-group">
                             <label for="precio">Precio</label>
-                            <input type="number" class="form-control" th:field="*{precio}" id="precio" name="precio" required="required" min="1" autocomplete="off">
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+                            <input type="number" class="form-control" th:field="*{precio}" id="precio" name="precio" autocomplete="off" th:classappend="${ #fields.hasErrors('precio') } ? ' is-invalid' : '' ">
+                            <div class="invalid-feedback">
+                                <th:block th:each="error : ${ #fields.errors('precio') }" th:text="${ error }"></th:block>
+                            </div> 
                         </div>
                         <div class="form-group">
                             <label for="categoria">Categoria</label>
-                            <select name="categoria" id="categoria" class="form-control" required>
+                            <select name="categoria" id="categoria" class="form-control" th:classappend="${ #fields.hasErrors('categoria') } ? ' is-invalid' : '' ">
                                <option value="">------</option>
                                <option th:each="categoria : ${categorias}"
                                 th:value="${categoria.id}"
-                                th:utext="${categoria.nombre}"/>
+                                th:utext="${categoria.nombre}"></option>
                             </select>
-                            <div class="alert alert-warning" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+                            <div class="invalid-feedback">
+                                <th:block th:each="error : ${ #fields.errors('categoria') }" th:text="${ error }"></th:block>
+                            </div>
+                        </div>
+                        <div class="form-group" id="subCategoriaFormGroup">
+                            <label for="subCategoria">Sub-Categoria</label>
+                            <select th:field="*{subCategoria.id}" name="subCategoria" id="subCategoria" class="form-control"></select>
+                            <div class="invalid-feedback">
+                                <th:block th:each="error : ${ #fields.errors('subCategoria') }" th:text="${ error }"></th:block>
+                            </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-outline-success btn-block">Guardar</button>
@@ -49,5 +62,7 @@
         
         <footer th:insert="fragments :: footer"></footer>
         <div th:insert="fragments :: scripts"></div>
+        <script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
+        <script type="text/javascript" src="/js/producto/nuevo.js"></script>
     </body>
 </html>

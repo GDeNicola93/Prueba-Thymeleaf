@@ -2,6 +2,7 @@ package com.example.prueba_thymeleaf.controller;
 
 import com.example.prueba_thymeleaf.dtos.ProductoListaDto;
 import com.example.prueba_thymeleaf.entity.Producto;
+import com.example.prueba_thymeleaf.entity.SubCategoria;
 import com.example.prueba_thymeleaf.entity.Usuario;
 import com.example.prueba_thymeleaf.security.UsuarioPrincipal;
 import com.example.prueba_thymeleaf.service.CategoriaService;
@@ -57,15 +58,18 @@ public class ProductoController {
     
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/guardar")
-    public String crear(@Valid @ModelAttribute("productoForm") Producto productoForm,BindingResult bindingResult,Authentication authentication,Model model){
+    public String crear(@Valid @ModelAttribute("productoForm") Producto productoForm,BindingResult bindingResult,Authentication authentication,Model model,RedirectAttributes redirect){
         if (bindingResult.hasErrors()) {
+            model.addAttribute("productoForm",productoForm);
             model.addAttribute("categorias",categoriaService.list());
+            System.out.println(bindingResult.getAllErrors());
             return "producto/nuevo";
         }
         UsuarioPrincipal userLogeado = (UsuarioPrincipal) authentication.getPrincipal();      
         productoForm.setUsuarioRegistro(new Usuario(userLogeado.getId()));
         productoForm.setUsuarioRegistro(new Usuario(userLogeado.getId()));
         productoService.save(productoForm);
+        redirect.addFlashAttribute("registroOK", "Se ha guardado el producto correctamente");
         return "redirect:/producto/lista";
     }
     
@@ -75,7 +79,7 @@ public class ProductoController {
             return "redirect:/producto/lista";
         }
         model.addAttribute("producto",productoService.getOne(id).get());
-        return "/producto/detalle";
+        return "producto/detalle";
     }
     
     @PreAuthorize("hasRole('ADMIN')")
