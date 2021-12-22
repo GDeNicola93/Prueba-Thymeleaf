@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:insert="fragments :: headerfiles">
+       
+    </head>
+    <body>
+        <header th:insert="fragments :: nav"></header>
+        <div class="container">
+            <form th:action="@{/venta/guardar}" th:object="${ventaForm}" method="POST">
+            <!-- <form th:object="${ventaForm}"> -->
+                <h2>Nueva venta</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="buscador">
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h4>Detalle de venta</h4>
+                    </div>
+                    <div class="col">
+                        <h5 id="totalVenta" class="float-right"></h5>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Cód</th>
+                            <th scope="col">Articulo</th>
+                            <th scope="col">$ Precio</th>
+                        </tr>
+                    </thead>
+                    <!-- <tbody id="detallesDeVenta">
+                        Aca se van cargando por javascript dinamicamente
+                    </tbody> -->
+                    <tbody>
+                        <tr th:each="detalle, status : ${ventaForm?.detallesDeVenta}" th:attr="data-id=${status.index}">
+                            <td th:attr="data-id=${status.index}">
+                               <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.id}"></p>
+                            </td>
+                            <td th:attr="data-id=${status.index}">
+                                <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.nombre}"></p>
+                            </td>
+                            <td th:attr="data-id=${status.index}">
+                                <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.precio}"></p>
+                            </td>
+                        </tr>
+                        <tr class="d-none" th:attr="data-id=${index}" th:with="index = ${ventaForm?.detallesDeVenta != null ? ventaForm.detallesDeVenta.size() : 0}" id="fila-nuevo-detalle">
+                            <td name="detallesDeVenta.producto.id" class="idProducto">
+                                
+                            </td>
+                            <td name="detallesDeVenta.producto.nombre" class="nombreProducto">
+                                
+                            </td>
+                            <td name="detallesDeVenta.producto.precio" class="precioProducto">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success btn-block">Guardar</button>
+                </div> 
+            </form>
+        </div>
+        
+        <!--<footer th:insert="fragments :: footer"></footer>-->
+        <div th:insert="fragments :: scripts"></div>
+        <script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
+        <script type="text/javascript" src="/js/venta/nueva.js"></script>
+    </body>
+</html>

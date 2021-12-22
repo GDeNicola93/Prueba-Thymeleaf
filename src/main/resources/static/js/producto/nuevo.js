@@ -1,5 +1,4 @@
 $(function(){
-	
 	// Acciones On-Load
 	$("#subCategoriaFormGroup").hide();
 	

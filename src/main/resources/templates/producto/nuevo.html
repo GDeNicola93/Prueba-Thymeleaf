@@ -22,7 +22,12 @@
                         </div>
                         <div class="form-group">
                             <label for="precio">Precio</label>
-                            <input type="number" class="form-control" th:field="*{precio}" id="precio" name="precio" autocomplete="off" th:classappend="${ #fields.hasErrors('precio') } ? ' is-invalid' : '' ">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">$</span>
+                                </div>
+                                <input type="number" class="form-control" th:field="*{precio}" id="precio" name="precio" autocomplete="off" th:classappend="${ #fields.hasErrors('precio') } ? ' is-invalid' : '' ">
+                            </div>
                             <div class="invalid-feedback">
                                 <th:block th:each="error : ${ #fields.errors('precio') }" th:text="${ error }"></th:block>
                             </div> 

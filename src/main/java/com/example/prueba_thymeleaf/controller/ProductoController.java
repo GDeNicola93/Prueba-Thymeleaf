@@ -30,6 +30,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -119,5 +120,12 @@ public class ProductoController {
             return "redirect:/producto/lista";
         }
         return null;
+    }
+    
+    //API's
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(path = "/api/detalle/{id}",produces = "application/json")
+    public @ResponseBody ProductoListaDto getProductoListaDtoByIdProducto(@PathVariable("id") int id){
+        return productoService.getProductoListaDtoByIdProducto(id).get();
     }
 }

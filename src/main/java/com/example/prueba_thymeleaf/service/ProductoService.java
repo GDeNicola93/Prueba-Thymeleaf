@@ -44,4 +44,8 @@ public class ProductoService {
     public boolean existsByNombre(String nombre){
         return productoRepository.existsByNombre(nombre);
     }
+    
+    public Optional<ProductoListaDto> getProductoListaDtoByIdProducto(int id){
+        return productoRepository.getProductoListaDtoByIdProducto(id);
+    }
 }

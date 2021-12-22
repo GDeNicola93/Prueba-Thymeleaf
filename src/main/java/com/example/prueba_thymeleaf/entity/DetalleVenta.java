@@ -3,7 +3,6 @@ package com.example.prueba_thymeleaf.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,14 +11,17 @@ import lombok.Data;
 
 @Entity
 @Data
-public class SubCategoria implements Serializable{
+public class DetalleVenta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private String nombre;
+    @ManyToOne
+    private Producto producto;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    private float precio;
+    
+    @ManyToOne
     @JsonIgnore
-    private Categoria categoria;
+    private Venta venta;
 }

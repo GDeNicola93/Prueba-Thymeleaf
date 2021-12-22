@@ -19,6 +19,7 @@
                     <div th:if="${producto.usuarioUltimaActualizacion != null}" class="card-text">
                         <p class="card-text" th:text="'Ultima actualización por: ' + ${producto.usuarioUltimaActualizacion.nombreUsuario}"></p>
                     </div>
+                    <p class="card-text" th:text="'Fecha y hora de Creación: ' + ${producto.fechaHoraCreacion}"></p>
                     <a th:href="@{/producto/lista}" class="btn btn-outline-info mt-2">
                         <i class="fas fa-arrow-circle-left"></i> Volver
                     </a>

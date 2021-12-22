@@ -12,14 +12,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
-//    @Query("SELECT p from Producto p")
-//    List<ProductoListaDto> getProductosListaDto();
+    
+//    @Query("SELECT p.id as id,p.nombre as nombre,p.precio as precio from Producto p")
+//    Page<ProductoListaDto> getProductosListaDto(Pageable pageable);
     
     @Query("SELECT p from Producto p")
     Page<ProductoListaDto> getProductosListaDto(Pageable pageable);
     
+//    @Query("SELECT NEW com.example.prueba_thymeleaf.dtos.ProductoListaDto(p.id,p.nombre,p.precio) from Producto p")
+//    Page<ProductoListaDto> getProductosListaDto(Pageable pageable);
     
     Optional<Producto> findByNombre(String nombre);
     boolean existsByNombre(String nombre);
+    
+    @Query("SELECT p from Producto p where p.id = ?1")
+    Optional<ProductoListaDto> getProductoListaDtoByIdProducto(int id);
 
 }

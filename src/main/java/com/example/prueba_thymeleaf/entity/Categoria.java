@@ -3,6 +3,7 @@ package com.example.prueba_thymeleaf.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class Categoria implements Serializable {
     
     private String nombre;
     
-    @OneToMany(mappedBy = "categoria")
+    private String descripcion;
+    
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "categoria")
     private List<SubCategoria> subCategorias;
 }

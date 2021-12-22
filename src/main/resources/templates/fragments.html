@@ -21,6 +21,9 @@
                   <a class="nav-link" th:href="@{/}">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
+                  <a class="nav-link" th:href="@{/venta}" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')">Venta</a>
+                </li>
+                <li class="nav-item active">
                   <a class="nav-link" th:href="@{/producto/lista}" sec:authorize="isAuthenticated() && !hasRole('ROLE_ADMIN')">Lista</a>
                 </li>
                 <li class="nav-item dropdown active" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -35,11 +38,6 @@
                 </li>
               </ul>           
                 <a sec:authorize="!isAuthenticated()" th:href="@{/login}"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar Sesión</button></a>
-                <!--<form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                    </button>
-                </form>-->
                 <li sec:authorize="isAuthenticated()" class="navbar-nav mr-right nav-item dropdown active" style="margin-right: 50px;">
                     <a
                       class="nav-link dropdown-toggle"

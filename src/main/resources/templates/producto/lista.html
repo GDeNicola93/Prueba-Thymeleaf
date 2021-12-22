@@ -16,7 +16,8 @@
                 <thead>
                   <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Precio</th>
+                    <th scope="col">Precio</th> 
+                    <th scope="col">Completo</th>
                     <th scope="col">Ver</th>
                     <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
                     <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
@@ -26,6 +27,7 @@
                   <tr th:each="producto : ${page.content}">
                     <td th:text="${producto.nombre}"></td>
                     <td th:text="${producto.precio}"></td>
+                    <td th:text="${producto.infoCompleta}"></td>
                     <td><a th:href="@{'/producto/detalle/' + ${producto.id}}"><button class="btn btn-outline-primary"><i class="fas fa-eye"></i></button></a></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/producto/editar/' + ${producto.id}}"><button class="btn btn-outline-warning"><i class="fas fa-edit"></i></button></a></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/producto/borrar/' + ${producto.id}}"><button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button></a></td>
