@@ -27,6 +27,6 @@ public class Venta implements Serializable {
     @CreatedDate
     private LocalDateTime fechaHoraVenta;
     
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "venta")
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "venta")
     Set<DetalleVenta> detallesDeVenta = new HashSet<>();
 }

@@ -38,38 +38,53 @@ $(function(){
     }
     
     function agregarProductoATablaDetalleVenta(data){
-        // var tabla = document.getElementById("detallesDeVenta");
+        // var $tr = $("#fila-nuevo-detalle");
+		// var $trnew = $("#fila-nuevo-detalle").clone();
+        // var id = parseInt($tr.attr("data-id"));
 
-        // //Se crea el <tr>
-        // var nuevaFilaDeTabla = tabla.insertRow(0);
-        
-        // //Se crean los <td>
-        // var col1 = nuevaFilaDeTabla.insertCell(0);
-        // var col2 = nuevaFilaDeTabla.insertCell(1);
-        // var col3 = nuevaFilaDeTabla.insertCell(2);
-
-
-        // col1.innerHTML = data.id;
-        // col2.innerHTML = data.nombre;
-        // col3.innerHTML = formatter.format(data.precio);
-
+        // $tr.find("td.idProducto").text(data.id);
+        // $tr.find("td.nombreProducto").text(data.nombre);
+        // $tr.find("td.precioProducto").text(formatter.format(data.precio));
         // montoTotalVenta = montoTotalVenta + data.precio;
-
+        
+        // debugger;
+        // $tr.attr("id", "detalles-" + id).removeClass("d-none");
+        // $trnew.attr("data-id", id + 1);
+		// $(document.getElementById("detalles-" + id)).after($trnew);
         // document.getElementById("totalVenta").innerHTML = "Total Venta: " + formatter.format(montoTotalVenta);
+        
+        
         var $tr = $("#fila-nuevo-detalle");
 		var $trnew = $("#fila-nuevo-detalle").clone();
-        var id = parseInt($tr.attr("data-id"));
+		var id = parseInt($tr.attr("data-id"));
+		$tr.find("input.campo-detalles.campo-id").each(function(i, campo){
+			var nombre = "detallesDeVenta[" + id + "]." + $(campo).attr('name').split('.')[1];
+			$(campo).attr('name', nombre + ".id");
+            $(campo).attr('value', data.id);
+		});
 
-        $tr.find("td.idProducto").text(data.id);
-        $tr.find("td.nombreProducto").text(data.nombre);
-        $tr.find("td.precioProducto").text(formatter.format(data.precio));
+        $tr.find("input.campo-detalles.campo-nombre").each(function(i, campo){
+			var nombre = "detallesDeVenta[" + id + "]." + $(campo).attr('name').split('.')[1];
+			$(campo).attr('name', nombre + ".nombre");
+            $(campo).attr('value', data.nombre);
+		});
+
+        $tr.find("input.campo-detalles.campo-precio").each(function(i, campo){
+			var nombre = "detallesDeVenta[" + id + "]." + $(campo).attr('name').split('.')[1];
+			$(campo).attr('name', nombre + ".precio");
+            $(campo).attr('value', formatter.format(data.precio));
+		});
+
         montoTotalVenta = montoTotalVenta + data.precio;
-        
-        debugger;
-        $tr.attr("id", "detalles-" + id).removeClass("d-none");
-        $trnew.attr("data-id", id + 1);
-		$(document.getElementById("detalles-" + id)).after($trnew);
         document.getElementById("totalVenta").innerHTML = "Total Venta: " + formatter.format(montoTotalVenta);
+		
+		$tr.find("td").each(function(i, campo){
+			$(campo).attr('data-id', id);
+		});
+		
+        $tr.attr("id", "detallesDeVenta-" + id).removeClass("d-none");
+		$trnew.attr("data-id", id + 1);
+		$(document.getElementById("detallesDeVenta-" + id)).after($trnew);
     }
 
 });

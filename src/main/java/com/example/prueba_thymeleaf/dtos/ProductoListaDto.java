@@ -10,11 +10,14 @@ import lombok.Data;
 //    String nombre;
 //    
 //    float precio;
+//    
+//    String categoriaNombre;
 //
-//    public ProductoListaDto(Integer id, String nombre, float precio) {
+//    public ProductoListaDto(Integer id, String nombre, float precio, String categoriaNombre) {
 //        this.id = id;
 //        this.nombre = nombre;
 //        this.precio = precio;
+//        this.categoriaNombre = categoriaNombre;
 //    }
 //    
 //    public String getInfoCompleta(){

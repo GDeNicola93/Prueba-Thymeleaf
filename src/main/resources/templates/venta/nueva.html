@@ -6,8 +6,7 @@
     <body>
         <header th:insert="fragments :: nav"></header>
         <div class="container">
-            <form th:action="@{/venta/guardar}" th:object="${ventaForm}" method="POST">
-            <!-- <form th:object="${ventaForm}"> -->
+            <form th:action="@{/venta/guardar}" th:object="${ventaForm}" th:method="POST">
                 <h2>Nueva venta</h2>
                 <div class="form-group">
                     <input type="text" class="form-control" id="buscador">
@@ -29,30 +28,16 @@
                             <th scope="col">$ Precio</th>
                         </tr>
                     </thead>
-                    <!-- <tbody id="detallesDeVenta">
-                        Aca se van cargando por javascript dinamicamente
-                    </tbody> -->
                     <tbody>
-                        <tr th:each="detalle, status : ${ventaForm?.detallesDeVenta}" th:attr="data-id=${status.index}">
-                            <td th:attr="data-id=${status.index}">
-                               <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.id}"></p>
-                            </td>
-                            <td th:attr="data-id=${status.index}">
-                                <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.nombre}"></p>
-                            </td>
-                            <td th:attr="data-id=${status.index}">
-                                <p th:text="${ventaForm?.detallesDeVenta[__${status.index}__]?.producto.precio}"></p>
-                            </td>
-                        </tr>
                         <tr class="d-none" th:attr="data-id=${index}" th:with="index = ${ventaForm?.detallesDeVenta != null ? ventaForm.detallesDeVenta.size() : 0}" id="fila-nuevo-detalle">
-                            <td name="detallesDeVenta.producto.id" class="idProducto">
-                                
+                            <td class="col-1">
+                                <input class="form-control mb-0 campo-detalles campo-id" name="detallesDeVenta.producto.id" readonly>
                             </td>
-                            <td name="detallesDeVenta.producto.nombre" class="nombreProducto">
-                                
+                            <td class="col-8">
+                                 <input class="form-control mb-0 campo-detalles campo-nombre" name="detallesDeVenta.producto.nombre" readonly>
                             </td>
-                            <td name="detallesDeVenta.producto.precio" class="precioProducto">
-                                
+                            <td class="col">
+                                <input class="form-control mb-0 campo-detalles campo-precio" name="detallesDeVenta.producto.precio" readonly>
                             </td>
                         </tr>
                     </tbody>

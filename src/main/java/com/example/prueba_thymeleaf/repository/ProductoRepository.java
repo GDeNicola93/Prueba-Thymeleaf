@@ -27,5 +27,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     
     @Query("SELECT p from Producto p where p.id = ?1")
     Optional<ProductoListaDto> getProductoListaDtoByIdProducto(int id);
-
+    
+    
 }
