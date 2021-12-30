@@ -3,6 +3,7 @@ package com.example.prueba_thymeleaf.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,9 +25,19 @@ public class Venta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    private String nombreVenta;
+    
     @CreatedDate
     private LocalDateTime fechaHoraVenta;
     
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "venta")
-    Set<DetalleVenta> detallesDeVenta = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "venta")
+    private List<DetalleVenta> detallesDeVenta;
+    
+    public float getTotalVenta(){
+        float sumaTotal = 0;
+        for(DetalleVenta dv : this.getDetallesDeVenta()){
+            sumaTotal = sumaTotal + dv.getPrecio();
+        }
+        return sumaTotal;
+    }
 }

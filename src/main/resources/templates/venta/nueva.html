@@ -8,7 +8,14 @@
         <div class="container">
             <form th:action="@{/venta/guardar}" th:object="${ventaForm}" th:method="POST">
                 <h2>Nueva venta</h2>
+                
                 <div class="form-group">
+                    <label for="nombreVenta">Nombre de venta:</label>
+                    <input class="form-control" type="text" th:field="*{nombreVenta}" id="nombreVenta" name="nombreVenta">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombreVenta">Ingrese id de Producto y precione la barra espaciadora:</label>
                     <input type="text" class="form-control" id="buscador">
                 </div>
 

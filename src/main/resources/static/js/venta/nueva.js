@@ -72,7 +72,7 @@ $(function(){
         $tr.find("input.campo-detalles.campo-precio").each(function(i, campo){
 			var nombre = "detallesDeVenta[" + id + "]." + $(campo).attr('name').split('.')[1];
 			$(campo).attr('name', nombre + ".precio");
-            $(campo).attr('value', formatter.format(data.precio));
+            $(campo).attr('value', data.precio);
 		});
 
         montoTotalVenta = montoTotalVenta + data.precio;
