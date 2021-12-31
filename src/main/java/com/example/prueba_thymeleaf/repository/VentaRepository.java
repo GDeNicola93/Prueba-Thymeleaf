@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VentaRepository extends JpaRepository<Venta,Integer> {
-    @Query("SELECT p from Producto p")
+    @Query("SELECT v from Venta v")
     Page<VentaListadoDto> getVentaListadoDto(Pageable pageable);
 }

@@ -38,22 +38,6 @@ $(function(){
     }
     
     function agregarProductoATablaDetalleVenta(data){
-        // var $tr = $("#fila-nuevo-detalle");
-		// var $trnew = $("#fila-nuevo-detalle").clone();
-        // var id = parseInt($tr.attr("data-id"));
-
-        // $tr.find("td.idProducto").text(data.id);
-        // $tr.find("td.nombreProducto").text(data.nombre);
-        // $tr.find("td.precioProducto").text(formatter.format(data.precio));
-        // montoTotalVenta = montoTotalVenta + data.precio;
-        
-        // debugger;
-        // $tr.attr("id", "detalles-" + id).removeClass("d-none");
-        // $trnew.attr("data-id", id + 1);
-		// $(document.getElementById("detalles-" + id)).after($trnew);
-        // document.getElementById("totalVenta").innerHTML = "Total Venta: " + formatter.format(montoTotalVenta);
-        
-        
         var $tr = $("#fila-nuevo-detalle");
 		var $trnew = $("#fila-nuevo-detalle").clone();
 		var id = parseInt($tr.attr("data-id"));

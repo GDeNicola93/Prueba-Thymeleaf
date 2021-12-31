@@ -1,12 +1,16 @@
 
 package com.example.prueba_thymeleaf.controller;
 
+import com.example.prueba_thymeleaf.dtos.VentaListadoDto;
 import com.example.prueba_thymeleaf.entity.DetalleVenta;
 import com.example.prueba_thymeleaf.entity.Venta;
 import com.example.prueba_thymeleaf.repository.VentaRepository;
 import com.example.prueba_thymeleaf.service.VentaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +31,8 @@ public class VentaController {
     
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping()
-    public String list(){
+    public String list(@PageableDefault(size = 8) Pageable page,Model model){
+        model.addAttribute("page",ventaServicio.list(page));
         return "venta/lista";
     }
     
@@ -35,7 +40,7 @@ public class VentaController {
     @GetMapping("/ver/{id}")
     public String verVenta(@PathVariable("id") int id,Model model){
         if(!ventaServicio.getOne(id).isPresent()){
-            return "venta/lista";
+            return "redirect:/venta";
         }
         model.addAttribute("venta",ventaServicio.getOne(id).get());
         return "venta/ver";
@@ -52,6 +57,6 @@ public class VentaController {
     @PostMapping("/guardar")
     public String crear(Model model,@ModelAttribute("ventaForm") Venta ventaForm){
         ventaServicio.guardar(ventaForm);
-        return "venta/lista";
+        return "redirect:/venta";
     }
 }

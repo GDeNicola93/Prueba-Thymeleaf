@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:insert="fragments :: headerfiles">
+       
+    </head>
+    <body>
+        <header th:insert="fragments :: nav"></header>
+        <div class="container">
+            <h2 th:text="'Ver información de venta ' + ${venta.id}"></h2>
 
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        <label>Nombre de venta:</label>
+                        <input th:field="*{venta.nombreVenta}" type="text" class="form-control" disabled="true">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label>Fecha y hora</label>
+                        <input th:field="*{venta.fechaHoraVenta}" type="text" class="form-control" disabled="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5>Detalle de venta</h5>
+                </div>
+                <div class="col">
+                    <h5 th:text="'Total venta: $ ' + ${#numbers.formatDecimal({venta.totalVenta},0,2,'COMMA')}" class="float-right"></h5>
+                </div>
+            </div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Cód Detalle</th>
+                        <th scope="col">Articulo</th>
+                        <th scope="col">$ Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dv : ${venta.detallesDeVenta}">
+                        <td th:text="${dv.id}"></td>
+                        <td th:text="${dv.producto.nombre}"></td>
+                        <td th:text="'$ ' + ${#numbers.formatDecimal({dv.precio},0,2,'COMMA')}"></td>
+                    </tr>
+                </tbody>
+            </table> 
+
+        </div>
+        
+        <!--<footer th:insert="fragments :: footer"></footer>-->
+        <div th:insert="fragments :: scripts"></div>
+    </body>
+</html>
